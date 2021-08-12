@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Advanced configuration topics &mdash; DOMjudge 7.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/js/versionswitcher.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Running the contest" href="running.html" />
+    <link rel="prev" title="Adding contest data programmatically" href="import.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DOMjudge
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                7.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-domserver.html">Installation of the DOMserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-judgehost.html">Installation of the judgehosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-workstation.html">Installation of the team workstations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading.html">Upgrading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-basic.html">Configuring the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import.html">Adding contest data programmatically</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced configuration topics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#adding-graphics">Adding graphics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authentication-and-registration">Authentication and registration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ip-address">IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#x-headers">X-Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-remote-user">Using REMOTE-USER</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-user-password-hashing-cost">Changing the User password hashing cost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#self-registration">Self-registration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#executables">Executables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#programming-languages">Programming languages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#special-run-and-compare-programs">Special run and compare programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compare-programs">Compare programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-programs">Run programs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#printing">Printing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multiple-judgedaemons-per-machine">Multiple judgedaemons per machine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#multi-site-contests">Multi-site contests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the contest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="judging.html">Judging topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-install.html">Appendix: Quick installation checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">DOMjudge team manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem-format.html">Appendix: Problem format specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shadow.html">Appendix: Running DOMjudge as a shadow system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration-reference.html">Appendix: Configuration reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DOMjudge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Advanced configuration topics</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/DOMjudge/domjudge/blob/master/doc/manual/config-advanced.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="advanced-configuration-topics">
+<h1>Advanced configuration topics<a class="headerlink" href="#advanced-configuration-topics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-graphics">
+<h2>Adding graphics<a class="headerlink" href="#adding-graphics" title="Permalink to this headline">¶</a></h2>
+<p>DOMjudge can optionally present country flags, affiliation logos,
+team pictures and a page-wide banner on the public interface.</p>
+<p>You can place the images under the path <cite>public/images/</cite> as
+follows:</p>
+<ul class="simple">
+<li><em>Country flags</em> are shown when the <code class="docutils literal notranslate"><span class="pre">show_flags</span></code> configuration option
+is enabled. They are shipped with DOMjudge under
+<cite>public/images/countries/XXX.png</cite> with <em>XXX</em> being the country code.
+You can replace them if you want different flags.</li>
+<li><em>Affiliation logos</em>: these will be shown with the teams that are
+part of the affiliation, if the <code class="docutils literal notranslate"><span class="pre">show_affiliation_logos</span></code> configuration
+option is enabled. They can be placed in
+<cite>public/images/affiliations/1234.png</cite> where <em>1234</em> is the numeric ID
+of the affiliation as shown in the DOMjudge interface. There is a
+separate option <code class="docutils literal notranslate"><span class="pre">show_affiliations</span></code> that independently controls where
+the affiliation <em>names</em> are shown on the scoreboard.</li>
+<li><em>Team pictures</em>: a photo of the team will be shown in the team details
+page if <cite>public/images/teams/456.jpg</cite> exists, where <em>456</em> is the
+team’s numeric ID as shown in the DOMjudge interface.</li>
+<li><em>Banner</em>: a page-wide banner can be shown on all pages of the public
+interface, if that image is placed in <cite>public/images/banner.png</cite>.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The IDs for affiliations and teams need to be the <em>external ID</em>
+if the <code class="docutils literal notranslate"><span class="pre">data_source</span></code> setting of DOMjudge is set to external.</p>
+</div>
+</div>
+<div class="section" id="authentication-and-registration">
+<span id="authentication"></span><h2>Authentication and registration<a class="headerlink" href="#authentication-and-registration" title="Permalink to this headline">¶</a></h2>
+<p>Out of the box users are able to authenticate using username and password.</p>
+<p>Two other native authentication methods are available:</p>
+<ul class="simple">
+<li>IP Address - authenticates users based on the IP address they are accessing
+the system from;</li>
+<li>X-Headers - authenticates users based on some HTTP header values.</li>
+</ul>
+<p>Besides this, DOMjudge can be configured with any provider that can set
+the environment variable <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code> to an existing username,
+for example LDAP, SAML, CAS or OpenID connect modules for Apache.</p>
+<p>There’s an option to let teams register themselves in the system.</p>
+<div class="section" id="ip-address">
+<h3>IP Address<a class="headerlink" href="#ip-address" title="Permalink to this headline">¶</a></h3>
+<p>To enable the IP Address authentication method, you will need to edit
+the configuration option <code class="docutils literal notranslate"><span class="pre">auth_methods</span></code> to include <code class="docutils literal notranslate"><span class="pre">ipaddress</span></code>.</p>
+<p>Once this is done, when a user first logs in their IP address will be
+associated with their account, and subsequent logins will allow them to log
+in without authenticating.</p>
+<p>If desired, you can edit or pre-fill the IP address associated with an
+account from the Users page. When using IPv6, ensure that you enter the
+address in the exact representation as the webserver reports it (e.g.
+as visible in the webserver logs) - no canonicalization is performed.</p>
+</div>
+<div class="section" id="x-headers">
+<h3>X-Headers<a class="headerlink" href="#x-headers" title="Permalink to this headline">¶</a></h3>
+<p>To enable the X-Headers authentication method, you will need to edit
+the configuration option <code class="docutils literal notranslate"><span class="pre">auth_methods</span></code> to include <code class="docutils literal notranslate"><span class="pre">xheaders</span></code>.</p>
+<p>To use this method, the following HTTP headers need to be sent to the
+<code class="docutils literal notranslate"><span class="pre">/login</span></code> URL. This can be done using the squid proxy for example, to
+prevent teams from needing to know their own log in information but in an
+environment where IP address based auth is not feasible (multi site over the
+internet contest).</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">X-DOMjudge-Login</span></code> - Contains the username</li>
+<li><code class="docutils literal notranslate"><span class="pre">X-DOMjudge-Pass</span></code>  - Contains the user’s password, base64 encoded</li>
+</ul>
+<p>Squid configuration for this might look like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">acl</span> <span class="n">autologin</span> <span class="n">url_regex</span> <span class="o">^</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">localhost</span><span class="o">/</span><span class="n">domjudge</span><span class="o">/</span><span class="n">login</span>
+<span class="n">request_header_add</span> <span class="n">X</span><span class="o">-</span><span class="n">DOMjudge</span><span class="o">-</span><span class="n">Login</span> <span class="s2">&quot;$USERNAME&quot;</span> <span class="n">autologin</span>
+<span class="n">request_header_add</span> <span class="n">X</span><span class="o">-</span><span class="n">DOMjudge</span><span class="o">-</span><span class="n">Pass</span> <span class="s2">&quot;$BASE64_PASSWORD&quot;</span> <span class="n">autologin</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-remote-user">
+<h3>Using REMOTE-USER<a class="headerlink" href="#using-remote-user" title="Permalink to this headline">¶</a></h3>
+<p>DOMjudge supports generic authentication by various existing providers that
+can authenticate a user and set the <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code> environment variable
+to the authenticated username.</p>
+<p>Examples of this are several Apache modules: mod LDAP, Shibboleth or
+Mod Mellon for SAML 2.0, mod Auth CAS, mod OpenID Connect, or mod Kerb for
+Kerberos.</p>
+<p>This does not currently allow for auto-provisioning or self-registration,
+the users must already exist in DOMjudge and their DOMjudge username must
+match what is in the <code class="docutils literal notranslate"><span class="pre">REMOTE_USER</span></code> variable.</p>
+<p>Set up the respective module to authenticate incoming users for the URL
+path of your installation. Then, in <code class="docutils literal notranslate"><span class="pre">webapp/config/packages/security.yaml</span></code>
+change the <code class="docutils literal notranslate"><span class="pre">main</span></code> section of your source tree to add a <code class="docutils literal notranslate"><span class="pre">remote_user</span></code>
+key after <code class="docutils literal notranslate"><span class="pre">form_login</span></code> that looks like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>main:
+    pattern: ^/
+    …
+    form_login:
+        login_path: login
+        check_path: login
+        csrf_token_generator: security.csrf.token_manager
+        use_referer: true
+    remote_user:
+        provider: domjudge_db_provider
+</pre></div>
+</div>
+<p>And re-run the “make install” command to deploy this change.
+Or alternatively remove the entire <code class="docutils literal notranslate"><span class="pre">var/cache/prod/</span></code> directory when
+editing <code class="docutils literal notranslate"><span class="pre">security.yaml</span></code> on an already deployed location.</p>
+<p>If the thus authenticated user is not found in DOMjudge, the application
+will present the standard username/password login screen as a fallback.</p>
+</div>
+<div class="section" id="changing-the-user-password-hashing-cost">
+<h3>Changing the User password hashing cost<a class="headerlink" href="#changing-the-user-password-hashing-cost" title="Permalink to this headline">¶</a></h3>
+<p>The hashing cost can be changed in <code class="docutils literal notranslate"><span class="pre">webapp/config/packages/security.yaml</span></code>, change the encoder section:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>encoders:</dt>
+<dd><dl class="first last docutils">
+<dt>AppEntityUser:</dt>
+<dd>algorithm: ‘bcrypt’
+cost: 7</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>For bcrypt (current encoder) each increase in cost will double the time per password.</p>
+<p>See the <a class="reference external" href="https://symfony.com/doc/current/reference/configuration/security.html">Symfony docs</a> for more info on this subject.</p>
+</div>
+<div class="section" id="self-registration">
+<h3>Self-registration<a class="headerlink" href="#self-registration" title="Permalink to this headline">¶</a></h3>
+<p>Teams can be allowed to self-register with the system. To enable it, go to
+the team category you want the self-registered teams to become part of and
+enable self-registration for that category. The option will be shown on the
+login screen if it has been enabled for at least one category. When multiple
+categories are set to allow, teams can choose one of them during registration.
+You can assign the respective categories to the contest(s) these teams may
+participarte in.</p>
+<p>During registration, teams can also specify their affiliation,
+if the global configuration option ‘show affiliations’ is enabled.</p>
+</div>
+</div>
+<div class="section" id="executables">
+<h2>Executables<a class="headerlink" href="#executables" title="Permalink to this headline">¶</a></h2>
+<p>DOMjudge supports executable archives (uploaded and stored in ZIP
+format) for configuration of languages, special run and compare
+programs. The archive must contain an executable file named
+<code class="docutils literal notranslate"><span class="pre">build</span></code> or <code class="docutils literal notranslate"><span class="pre">run</span></code>. When deploying a new (or changed)
+executable to a judgehost <code class="docutils literal notranslate"><span class="pre">build</span></code> is executed <em>once</em> if
+present. Afterwards an executable file <code class="docutils literal notranslate"><span class="pre">run</span></code> must exist (it may
+have existed before), that is called to execute the compile, compare,
+or run script. The specific formats are detailed below.</p>
+<p>Executables may be changed via the web interface in an online editor
+or by uploading a replacement zip file. Changes apply immediately to
+all further uses of that executable.</p>
+</div>
+<div class="section" id="programming-languages">
+<h2>Programming languages<a class="headerlink" href="#programming-languages" title="Permalink to this headline">¶</a></h2>
+<p>Compilers can be configured by creating or selecting/editing an executable in
+the web interface. When compiling a set of source files, the <code class="docutils literal notranslate"><span class="pre">run</span></code>
+executable is invoked with the following arguments: destination file name,
+memory limit (in kB), main (first) source file, other source files.
+For more information, see for example the executables <code class="docutils literal notranslate"><span class="pre">c</span></code> or
+<code class="docutils literal notranslate"><span class="pre">java_javac_detect</span></code> in the web interface. For many common languages
+compile scripts are already included.</p>
+<p>Interpreted languages and non-statically linked binaries (for example,
+Python or Java) can in also be used, but require that all
+runtime dependencies are added to the chroot environment. For details,
+see the section <a class="reference internal" href="install-judgehost.html#make-chroot"><span class="std std-ref">Creating a chroot environment</span></a>.</p>
+<p>Interpreted languages do not generate an executable and in principle
+do not need a compilation step. However, to be able to use interpreted
+languages (also Python and Java), during the compilation step a script
+must be generated that will function as the executable: the script
+must run the interpreter on the source. See for example <code class="docutils literal notranslate"><span class="pre">pl</span></code>
+and <code class="docutils literal notranslate"><span class="pre">java_javac_detect</span></code> in the list of executables.</p>
+</div>
+<div class="section" id="special-run-and-compare-programs">
+<h2>Special run and compare programs<a class="headerlink" href="#special-run-and-compare-programs" title="Permalink to this headline">¶</a></h2>
+<p>To allow for problems that do not fit within the standard scheme of
+fixed input and/or output, DOMjudge has the possibility to change the
+way submissions are run and checked for correctness.</p>
+<p>The back end script <code class="docutils literal notranslate"><span class="pre">testcase_run.sh</span></code> that handles
+the running and checking of submissions, calls separate programs
+for running submissions and comparison of the results. These can be
+specialised and adapted to the requirements per problem. For this, one
+has to create executable archives as described above.
+Then the executable must be
+selected in the <code class="docutils literal notranslate"><span class="pre">special_run</span></code> and/or <code class="docutils literal notranslate"><span class="pre">special_compare</span></code>
+fields of the problem (an empty value means that the default run and
+compare scripts should be used; the defaults can be set in the global
+configuration settings). When creating custom run and compare
+programs, we recommend re-using wrapper scripts that handle the
+tedious, standard part. See the boolfind example for details.</p>
+</div>
+<div class="section" id="compare-programs">
+<h2>Compare programs<a class="headerlink" href="#compare-programs" title="Permalink to this headline">¶</a></h2>
+<p>Compare scripts/programs should follow the
+<a class="reference external" href="https://www.problemarchive.org/wiki/index.php/Output_validator">problemarchive.org output validator format</a>.
+DOMjudge uses the <a class="reference external" href="https://www.problemarchive.org/wiki/index.php/Problem_Format#Output_Validators">default output validator</a>
+specified there as its default, which can be found at the
+<a class="reference external" href="https://github.com/Kattis/problemtools/blob/master/support/default_validator/">problemtools GitHub</a>.</p>
+<p>Note that DOMjudge only supports a subset of the functionality
+described there. In particular, the calling syntax is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">compare_script</span><span class="o">/</span><span class="n">run</span> <span class="o">&lt;</span><span class="n">testdata</span><span class="o">.</span><span class="ow">in</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">testdata</span><span class="o">.</span><span class="n">ans</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">feedbackdir</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">compare_args</span><span class="o">&gt;</span> <span class="o">&lt;</span> <span class="o">&lt;</span><span class="n">program</span><span class="o">.</span><span class="n">out</span><span class="o">&gt;</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">testdata.in</span></code> <code class="docutils literal notranslate"><span class="pre">testdata.ans</span></code> are the jury
+reference input and output files, <code class="docutils literal notranslate"><span class="pre">feedbackdir</span></code> the directory
+containing the judging response files <code class="docutils literal notranslate"><span class="pre">judgemessage.txt</span></code>
+and <code class="docutils literal notranslate"><span class="pre">judgeerror.txt</span></code>,
+<code class="docutils literal notranslate"><span class="pre">compare_args</span></code> a list of arguments that can set when
+configuring a contest problem, and <code class="docutils literal notranslate"><span class="pre">program.out</span></code> the team’s
+output. The validator program should not make any assumptions on its
+working directory.</p>
+<p>For more details on writing and modifying a compare (or validator)
+script, see the <code class="docutils literal notranslate"><span class="pre">boolfind_cmp</span></code> example and the comments at the
+top of the file <code class="docutils literal notranslate"><span class="pre">testcase_run.sh</span></code>.</p>
+</div>
+<div class="section" id="run-programs">
+<h2>Run programs<a class="headerlink" href="#run-programs" title="Permalink to this headline">¶</a></h2>
+<p>Special run programs can be used, for example, to create an interactive
+problem, where the contestants’ program exchanges information with a
+jury program and receives data depending on its own output. The
+problem <code class="docutils literal notranslate"><span class="pre">boolfind</span></code> is included as an example interactive
+problem, see <code class="docutils literal notranslate"><span class="pre">doc/examples/boolfind.pdf</span></code> for the description.</p>
+<p>Usage is similar to compare programs: you can either create a program
+<code class="docutils literal notranslate"><span class="pre">run</span></code> yourself, or use the provided wrapper script, which
+handles bi-directional communication between a jury program and the
+contestants’ program on stdin/stdout (see the <code class="docutils literal notranslate"><span class="pre">run</span></code>
+file in the <code class="docutils literal notranslate"><span class="pre">boolfind_run</span></code> executable).</p>
+<p>For the first case, the calling syntax that the program must accept is
+equal to the calling syntax of <code class="docutils literal notranslate"><span class="pre">run_wrapper</span></code>, which is
+documented in that file. When using <code class="docutils literal notranslate"><span class="pre">run_wrapper</span></code>, you should
+copy it to <code class="docutils literal notranslate"><span class="pre">run</span></code> in your executable archive.
+The jury must write a program named exactly <code class="docutils literal notranslate"><span class="pre">runjury</span></code>,
+accepting the calling syntax:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">runjury</span> <span class="o">&lt;</span><span class="n">testdata</span><span class="o">.</span><span class="ow">in</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">program</span><span class="o">.</span><span class="n">out</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>where the arguments are files to read input testdata from and write
+program output to, respectively. This program will communicate via
+stdin/stdout with the contestants’ program. A special compare program
+must probably also be created, so the exact data written to
+<code class="docutils literal notranslate"><span class="pre">program.out</span></code> is not important, as long as the
+correctness of the contestants’ program can be deduced from the
+contents by the compare program.</p>
+</div>
+<div class="section" id="printing">
+<span id="id1"></span><h2>Printing<a class="headerlink" href="#printing" title="Permalink to this headline">¶</a></h2>
+<p>It is recommended to configure the local desktop printing of team
+workstations where ever possible: this has the most simple interface
+and allows teams to print from within their editor.</p>
+<p>If this is not feasible, DOMjudge includes support for printing via
+the DOMjudge web interface: the DOMjudge server then needs to be
+able to deliver the uploaded files to the printer. It can be
+enabled via the <code class="docutils literal notranslate"><span class="pre">print_command</span></code> configuration option in
+the administrator interface. Here you can enter a command that will
+be run to print the files. The command you enter can have the
+following placeholders:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">[file]</span></code>: the location on disk of the file to print.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[original]</span></code>: the original name of the file.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[language]</span></code>: the ID of the language of the file. Useful for syntax highlighting.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[username]</span></code>: the username of the user who is printing.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[teamname]</span></code>: the teamname of the user who is printing.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[teamid]</span></code>: the team ID of the user who is printing.</li>
+<li><code class="docutils literal notranslate"><span class="pre">[location]</span></code>: the location of the user’s team.</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">[language]</span></code>, <code class="docutils literal notranslate"><span class="pre">[teamname]</span></code>, <code class="docutils literal notranslate"><span class="pre">[teamid]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">[location]</span></code> can be empty. Placeholders will be shell-escaped before
+passing them to the command. The standard output of the command will
+be shown in the web interface. If you also want to show standard error,
+add <code class="docutils literal notranslate"><span class="pre">2&gt;&amp;1</span></code> to the command.</p>
+<p>For example, to send the first 10 pages of the file to the default printer
+using <code class="docutils literal notranslate"><span class="pre">enscript</span></code> and add the username in the page header,
+you can use this command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">enscript</span> <span class="o">-</span><span class="n">b</span> <span class="p">[</span><span class="n">username</span><span class="p">]</span> <span class="o">-</span><span class="n">a</span> <span class="mi">0</span><span class="o">-</span><span class="mi">10</span> <span class="o">-</span><span class="n">f</span> <span class="n">Courier9</span> <span class="p">[</span><span class="n">file</span><span class="p">]</span> <span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multiple-judgedaemons-per-machine">
+<span id="multiple-judgedaemons"></span><h2>Multiple judgedaemons per machine<a class="headerlink" href="#multiple-judgedaemons-per-machine" title="Permalink to this headline">¶</a></h2>
+<p>You can run multiple judgedaemons on one multi-CPU or multi-core
+machine, dedicating one CPU core to each judgedaemon using Linux
+cgroups.</p>
+<p>To that end, add extra unprivileged users to the system, i.e. add users
+<code class="docutils literal notranslate"><span class="pre">domjudge-run-X</span></code> (where <code class="docutils literal notranslate"><span class="pre">X</span></code> runs through
+<code class="docutils literal notranslate"><span class="pre">0,1,2,3</span></code>) with <code class="docutils literal notranslate"><span class="pre">useradd</span></code> as described in the section
+<em>installation of a judgehost</em>.</p>
+<p>You can then start each of the judgedaemons with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">judgedaemon</span> <span class="o">-</span><span class="n">n</span> <span class="n">X</span>
+</pre></div>
+</div>
+<p>to bind it to core <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<p>Although each judgedaemon process will be bound to one single CPU
+core, shared use of other resources such as disk I/O might
+still have effect on run times.</p>
+</div>
+<div class="section" id="multi-site-contests">
+<h2>Multi-site contests<a class="headerlink" href="#multi-site-contests" title="Permalink to this headline">¶</a></h2>
+<p>This manual assumed you are running a singe-site contest; that is, the teams
+are located closely together, probably in a single physical location. In a
+multi-site or distributed contest, teams from several remote locations use the
+same DOMjudge installation. An example is a national contest where teams can
+participate at their local institution.</p>
+<p>One option is to run a central installation of
+DOMjudge to which the teams connect over the internet. It is here where
+all submission processing and judging takes place. Because DOMjudge uses a web
+interface for all interactions, teams and judges will interface with the system
+just as if it were local.  Still, there are some specific considerations for a
+multi-site contest.</p>
+<p>Network: there must be a relatively reliable network connection between the
+locations and the central DOMjudge installation, because teams cannot submit or
+query the scoreboard if the network is down. Because of traversing an unsecured
+network, you should consider HTTPS for encrypting the traffic.  If you
+want to limit teams’ internet access, it must be done in such a way that the remote
+DOMjudge installation can still be reached.</p>
+<p>Team authentication: the IP-based authentication will still work as long as
+each team workstation has a different public IP address. If some teams are
+behind a NAT-router and thus all present themselves to DOMjudge with the same
+IP-address, another authentication scheme must be used (e.g. PHP sessions).</p>
+<p>Judges: if the people reviewing the submissions will be located remotely as
+well, it’s important to agree beforehand on who-does-what, using the
+submissions claim feature and how responding to incoming clarification requests
+is handled. Having a shared chat/IM channel may help when unexpected issues
+arise.</p>
+<p>Scoreboard: by default DOMjudge presents all teams in the same scoreboard.
+Per-site scoreboards can be implemented either by using team categories or
+team affiliations in combination with the scoreboard filtering option.</p>
+<p>As an alternative, each site can run their own DOMjudge installation, and
+each site will have a local scoreboard with their own teams. It is possible
+to create a merged scoreboard out of these individual installations with the
+console command <code class="docutils literal notranslate"><span class="pre">scoreboard:merge</span></code>. You need to know for each site which
+contest ID to use, and the IDs of the team categories you want to include
+(comma separated). You can then run it like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">webapp</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">console</span> <span class="n">scoreboard</span><span class="p">:</span><span class="n">merge</span> <span class="s1">&#39;Combined Scoreboard Example&#39;</span> \
+   <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">judge</span><span class="o">.</span><span class="n">example1</span><span class="o">.</span><span class="n">edu</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v4</span><span class="o">/</span><span class="n">contests</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span> <span class="mi">3</span> \
+   <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">chipcie</span><span class="o">.</span><span class="n">example2</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v4</span><span class="o">/</span><span class="n">contests</span><span class="o">/</span><span class="mi">2</span><span class="o">/</span> <span class="mi">2</span><span class="p">,</span><span class="mi">3</span>  \
+   <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">domjudge</span><span class="o">.</span><span class="n">aapp</span><span class="o">.</span><span class="n">example</span><span class="o">.</span><span class="n">nl</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">v4</span><span class="o">/</span><span class="n">contests</span><span class="o">/</span><span class="mi">6</span><span class="o">/</span> <span class="mi">3</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="running.html" class="btn btn-neutral float-right" title="Running the contest" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="import.html" class="btn btn-neutral float-left" title="Adding contest data programmatically" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2004-2021 by the DOMjudge developers and contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+#!/bin/sh
+# @configure_input@
+
+# This script allows one to perform DOMjudge database setup actions.
+# See usage below for possible commands and options.
+
+set -e
+
+BINDIR="@domserver_bindir@"
+ETCDIR="@domserver_etcdir@"
+WEBAPPDIR="@domserver_webappdir@"
+
+PASSWDFILE="$ETCDIR/dbpasswords.secret"
+
+verbose()
+{
+	if [ -z "$QUIET" ]; then
+		echo "$@"
+	fi
+}
+
+usage() {
+	cat <<EOF
+Usage: $0 [option]... <command>
+
+Commands:
+  status           check database installation status
+  genpass          generate DB,API,Symfony,admin password files
+  create-db-users  create (empty) database and users
+  install          create database, example contest and users if not existing
+  bare-install     create database, setup defaults if not existing
+  uninstall        remove database users and database, INCLUDING ALL DATA!
+  install-examples install examples only
+  upgrade          upgrade MySQL database schema to current version
+
+Options:
+  -u <user>  connect to MySQL with DB admin <user>
+  -p <pass>  use password <pass> for DB admin user
+  -r         read DB admin password from prompt
+
+Note: you may want to store your credentials in ~/.my.cnf in order to
+not have to pass any of the options above.
+
+EOF
+}
+
+# Wrapper around mysql command to allow setting options, user, etc.
+mysql()
+{
+	# shellcheck disable=SC2153
+	if [ -n "$DBUSER" ]; then
+		user="-u $DBUSER"
+	else
+		user="${DBA_USER:+-u ${DBA_USER}}"
+	fi
+	# shellcheck disable=SC2153
+	if [ -n "$PASSWD" ]; then
+		pass="-p$PASSWD"
+	else
+		pass=""
+		[ -n "$PROMPT_PASSWD" ] && pass="-p"
+		[ -n "$DBA_PASSWD" ]    && pass="-p$DBA_PASSWD"
+	fi
+	if [ -n "$pass" ]; then
+		command mysql $user "$pass" -h "$DBHOST" --silent --skip-column-names "$@"
+	else
+		command mysql $user -h "$DBHOST" --silent --skip-column-names "$@"
+	fi
+}
+
+# Quick shell hack to get a key from an INI file.
+# This is not perfect and ignores sections at least!
+get_ini_file_key()
+{
+	(
+	FILE="$1"
+	KEY="$2"
+
+	grep "^[[:space:]]*${KEY}[[:space:]]*=" "$FILE" 2>/dev/null \
+		| sed -r "s/^[[:space:]]*${KEY}[[:space:]]*=[[:space:]]*//"
+	)
+}
+
+# Wrapper around the Symfony console to allow setting the connection and passing options
+symfony_console()
+{
+	if [ -n "$QUIET" ]; then
+		ARG="-q"
+	else
+		ARG=""
+	fi
+	DATABASE_URL=
+
+	# If we do not have an explicit user and password set, determine them from passed arguments,
+	# ~/.my.cnf or the current user
+
+	if [ -z "$DBUSER" ]; then
+		if [ -n "$DBA_USER" ]; then
+			if [ -n "$PROMPT_PASSWD" ]; then
+				stty -echo
+				printf "Enter password: "
+				read -r DBA_PASSWD
+				stty echo
+				printf "\n"
+			fi
+		fi
+
+		# If we do not have a user or password yet, try to read it from ~/.my.cnf
+		if [ -f ~/.my.cnf ]; then
+			[ -z "$DBA_USER"   ] && DBA_USER=$(  get_ini_file_key ~/.my.cnf 'user')
+			[ -z "$DBA_PASSWD" ] && DBA_PASSWD=$(get_ini_file_key ~/.my.cnf 'password')
+		fi
+
+		if [ -z "$DBA_USER" ]; then
+			DBA_USER=$(whoami)
+		fi
+
+		if [ -n "$DBA_USER" ]; then
+			if [ -n "$DBA_PASSWD" ]; then
+				DATABASE_URL=mysql://${DBA_USER}:${DBA_PASSWD}@${domjudge_DBHOST}:3306/${domjudge_DBNAME}
+			else
+				DATABASE_URL=mysql://${DBA_USER}@${domjudge_DBHOST}:3306/${domjudge_DBNAME}
+			fi
+		fi
+	fi
+
+	if [ -n "$DATABASE_URL" ]; then
+		DATABASE_URL=$DATABASE_URL ${WEBAPPDIR}/bin/console -v $ARG "$@"
+	else
+		${WEBAPPDIR}/bin/console -v $ARG "$@"
+	fi
+
+	# Make sure any generated cache data has the right permissions if we ran as root.
+	if [ `id -u` -eq 0 ]; then
+		${BINDIR}/fix_permissions
+	fi
+}
+
+read_dbpasswords()
+{
+	if [ ! -r "$PASSWDFILE" ]; then
+		echo "Error: password file '$PASSWDFILE' not found or not readable."
+		echo "You may want to run: $0 genpass"
+		return 1
+	fi
+	OLDIFS="$IFS"
+	IFS=":"
+	# Don't pipe $PASSWDFILE into this while loop as that spawns a
+	# subshell and then variables are not retained in the original shell.
+	while read -r role host db user passwd; do
+		# Skip lines beginning with a '#'
+		[ "x$role" != "x${role###}" ] && continue
+		domjudge_DBHOST=$host
+		domjudge_DBNAME=$db
+		domjudge_DBUSER=$user
+		domjudge_PASSWD=$passwd
+		DBHOST=$host
+		DBNAME=$db
+	done < "$PASSWDFILE"
+	IFS="$OLDIFS"
+	if [ -z "$domjudge_PASSWD" ]; then
+		echo "Error: no login info found."
+		return 1
+	fi
+	verbose "Database credentials read from '$PASSWDFILE'."
+}
+
+status()
+{
+	if [ ! -r "$PASSWDFILE" ]; then
+		echo "Error: cannot read database password file '$PASSWDFILE'."
+		return 1
+	fi
+	read_dbpasswords || return 1
+
+	printf "Trying to connect to the server as DB admin: "
+	mysql -e 'SELECT "success.";' || return 1
+
+	printf "Trying to connect to the server with user '%s': " "$domjudge_DBUSER"
+	DBUSER=$domjudge_DBUSER PASSWD=$domjudge_PASSWD mysql -e 'SELECT "success.";' || return 1
+
+	printf "Searching for database '%s': " "$DBNAME"
+	mysql -e "USE \`$DBNAME\`; SELECT 'found.';" || return 1
+
+	printf "Searching for data in database: "
+	DBUSER=$domjudge_DBUSER PASSWD=$domjudge_PASSWD \
+		mysql -e "USE \`$DBNAME\`; SELECT name FROM team WHERE name = 'DOMjudge';" || return 1
+
+	printf "MySQL server version: "
+	mysql -e 'SELECT version();'
+}
+
+create_db_users()
+{
+	(
+	# The MySQL character set and collation are hardcoded here, but
+	# can be changed in the database and their configuration settings
+	# in etc/domserver-config.php updated after installation.
+	echo "CREATE DATABASE IF NOT EXISTS \`$DBNAME\` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+
+	echo "CREATE USER IF NOT EXISTS '$domjudge_DBUSER'@'localhost' IDENTIFIED BY '$domjudge_PASSWD';"
+	echo "GRANT SELECT, INSERT, UPDATE, DELETE ON \`$DBNAME\`.* TO '$domjudge_DBUSER'@'localhost';"
+
+	echo "FLUSH PRIVILEGES;"
+	) | mysql
+	verbose "DOMjudge database and user(s) created."
+}
+
+remove_db_users()
+{
+	(
+	echo "DROP DATABASE IF EXISTS \`$DBNAME\`;"
+	echo "DROP USER IF EXISTS '$domjudge_DBUSER'@'localhost';"
+	echo "FLUSH PRIVILEGES;"
+	) | mysql -f
+	verbose "DOMjudge database and user(s) removed."
+}
+
+### Script starts here ###
+
+# Parse command-line options:
+while getopts ':u:p:qr' OPT ; do
+	case "$OPT" in
+		u)
+			DBA_USER=$OPTARG
+			;;
+		p)
+			DBA_PASSWD=$OPTARG
+			;;
+		q)
+			QUIET=1
+			;;
+		r)
+			PROMPT_PASSWD=1
+			;;
+		:)
+			echo "Error: option '$OPTARG' requires an argument."
+			usage
+			exit 1
+			;;
+		?)
+			echo "Error: unknown option '$OPTARG'."
+			usage
+			exit 1
+			;;
+		*)
+			echo "Error: unknown error reading option '$OPT', value '$OPTARG'."
+			usage
+			exit 1
+			;;
+	esac
+done
+shift $((OPTIND-1))
+
+case "$1" in
+
+status)
+	if status ; then
+		echo "Database check successful: database and users present and accessible."
+		exit 0
+	else
+		echo "Database status check failed."
+		exit 1
+	fi
+	;;
+
+genpass)
+	$ETCDIR/gen_all_secrets
+	;;
+
+uninstall)
+	read_dbpasswords
+	remove_db_users
+	;;
+
+install-examples)
+	read_dbpasswords
+	DBUSER=$domjudge_DBUSER PASSWD=$domjudge_PASSWD symfony_console domjudge:load-example-data
+	;;
+
+create-db-users)
+	read_dbpasswords
+	create_db_users
+	verbose "Created empty database and users."
+	;;
+
+bare-install|install)
+	read_dbpasswords
+	create_db_users
+	export DB_FIRST_INSTALL=1
+	symfony_console doctrine:migrations:migrate -n
+	unset DB_FIRST_INSTALL
+	if [ "$1" = "install" ]; then
+		DBUSER=$domjudge_DBUSER PASSWD=$domjudge_PASSWD symfony_console domjudge:load-example-data
+	fi
+	if [ "$1" = "install" ]; then
+		verbose "SQL structure and default/example data installed."
+	else
+		verbose "SQL structure and defaults installed (no sample data)."
+	fi
+	;;
+
+upgrade)
+	# check for legacy dbpasswords.secret content
+	if grep -Eq ^team: $PASSWDFILE >/dev/null 2>&1 ; then
+		echo "Warning: please remove all non-jury users from $PASSWDFILE"
+		echo "You may also remove those users from MySQL."
+	fi
+	read_dbpasswords
+	symfony_console doctrine:migrations:migrate -n
+	verbose "DOMjudge database upgrade completed."
+	;;
+
+*)
+	echo "Error: Unknown subcommand '$1'"
+	usage
+	exit 1
+	;;
+
+esac

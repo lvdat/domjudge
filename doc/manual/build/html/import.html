@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Adding contest data programmatically &mdash; DOMjudge 7.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/js/versionswitcher.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Advanced configuration topics" href="config-advanced.html" />
+    <link rel="prev" title="Configuring the system" href="config-basic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DOMjudge
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                7.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-domserver.html">Installation of the DOMserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-judgehost.html">Installation of the judgehosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-workstation.html">Installation of the team workstations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading.html">Upgrading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-basic.html">Configuring the system</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Adding contest data programmatically</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#importing-team-categories">Importing team categories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-teams">Importing teams</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-accounts">Importing accounts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-contest-metadata">Importing contest metadata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#importing-problems">Importing problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#putting-it-all-together">Putting it all together</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config-advanced.html">Advanced configuration topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the contest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="judging.html">Judging topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-install.html">Appendix: Quick installation checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">DOMjudge team manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem-format.html">Appendix: Problem format specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shadow.html">Appendix: Running DOMjudge as a shadow system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration-reference.html">Appendix: Configuration reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DOMjudge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Adding contest data programmatically</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/DOMjudge/domjudge/blob/master/doc/manual/import.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="adding-contest-data-programmatically">
+<h1>Adding contest data programmatically<a class="headerlink" href="#adding-contest-data-programmatically" title="Permalink to this headline">¶</a></h1>
+<p>DOMjudge offers API endpoints to add or update contest data programmatically.
+In general, we try to follow the <a class="reference external" href="https://clics.ecs.baylor.edu/index.php?title=Contest_Control_System_Requirements">CLICS CCS specification</a>
+for all file formats involved.</p>
+<p>All of the following examples require you to set up admin credentials in your
+<code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file (for format see under
+<a class="reference external" href="submit_client_requirements">submit client</a>).
+You need to install <a class="reference external" href="https://httpie.org/">httpie</a> and replace the
+<code class="docutils literal notranslate"><span class="pre">&lt;API_URL&gt;</span></code> in the examples below with the API URL of your local DOMjudge
+installation.</p>
+<div class="section" id="importing-team-categories">
+<h2>Importing team categories<a class="headerlink" href="#importing-team-categories" title="Permalink to this headline">¶</a></h2>
+<p>Prepare a file called <code class="docutils literal notranslate"><span class="pre">groups.tsv</span></code> which contains the team categories.
+The first line should contain <code class="docutils literal notranslate"><span class="pre">File_Version</span> <span class="pre">1</span></code> (tab-separated).
+Each of the following lines must contain the following elements separated by tabs:</p>
+<ul class="simple">
+<li>the category ID</li>
+<li>the name of the team category</li>
+</ul>
+<p>Example <code class="docutils literal notranslate"><span class="pre">groups.tsv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">File_Version</span>   <span class="mi">1</span>
+<span class="mi">13337</span>        <span class="n">Companies</span>
+<span class="mi">47</span>   <span class="n">Netherlands</span>
+<span class="mi">23</span>   <span class="n">United</span> <span class="n">Kingdom</span>
+</pre></div>
+</div>
+<p>To import the file run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span> <span class="o">--</span><span class="n">check</span><span class="o">-</span><span class="n">status</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="n">POST</span> <span class="s2">&quot;&lt;API_URL&gt;/users/groups&quot;</span> <span class="n">tsv</span><span class="nd">@groups</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="importing-teams">
+<h2>Importing teams<a class="headerlink" href="#importing-teams" title="Permalink to this headline">¶</a></h2>
+<p>Prepare a file called <code class="docutils literal notranslate"><span class="pre">teams2.tsv</span></code> which contains the teams.
+The first line should contain <code class="docutils literal notranslate"><span class="pre">File_Version</span>&#160;&#160;&#160; <span class="pre">2</span></code> (tab-separated).
+Each of the following lines must contain the following elements separated by tabs:</p>
+<ul class="simple">
+<li>the team ID</li>
+<li>an external ID, e.g. from the ICPC CMS, may be empty</li>
+<li>the category ID</li>
+<li>the team name</li>
+<li>the institution name</li>
+<li>the institution short name</li>
+<li>a country code in form of ISO 3166-1 alpha-3</li>
+<li>an external institution ID, e.g. from the ICPC CMS, may be empty</li>
+</ul>
+<p>Example <code class="docutils literal notranslate"><span class="pre">teams2.tsv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>File_Version   2
+1    447047  24      ¡i¡i¡   Lund University LU      SWE     INST-42
+2    447837  25      Pleading not FAUlty     Friedrich-Alexander-University Erlangen-Nuremberg       FAU     DEU     INST-43
+</pre></div>
+</div>
+<p>To import the file run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span> <span class="o">--</span><span class="n">check</span><span class="o">-</span><span class="n">status</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="n">POST</span> <span class="s2">&quot;&lt;API_URL&gt;/users/teams&quot;</span> <span class="n">tsv</span><span class="nd">@teams2</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="importing-accounts">
+<h2>Importing accounts<a class="headerlink" href="#importing-accounts" title="Permalink to this headline">¶</a></h2>
+<p>Prepare a file called <code class="docutils literal notranslate"><span class="pre">accounts.tsv</span></code> which contains the team credentials.
+The first line should contain <code class="docutils literal notranslate"><span class="pre">accounts</span>&#160; <span class="pre">1</span></code> (tab-separated).
+Each of the following lines must contain the following elements separated by tabs:</p>
+<ul class="simple">
+<li>the user type, one of <code class="docutils literal notranslate"><span class="pre">team</span></code> or <code class="docutils literal notranslate"><span class="pre">judge</span></code></li>
+<li>the full name of the user</li>
+<li>the username</li>
+<li>the password</li>
+</ul>
+<p>Example <code class="docutils literal notranslate"><span class="pre">accounts.tsv</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">accounts</span>     <span class="mi">1</span>
+<span class="n">team</span> <span class="n">team001</span> <span class="n">team001</span> <span class="n">P3xm33imve</span>
+<span class="n">team</span> <span class="n">team002</span> <span class="n">team002</span> <span class="n">qd4WHeJXbd</span>
+<span class="n">judge</span>        <span class="n">John</span> <span class="n">Doe</span>        <span class="n">john</span>    <span class="n">Uf4PYRA7mJ</span>
+</pre></div>
+</div>
+<p>To import the file run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span> <span class="o">--</span><span class="n">check</span><span class="o">-</span><span class="n">status</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="n">POST</span> <span class="s2">&quot;&lt;API_URL&gt;/users/accounts&quot;</span> <span class="n">tsv</span><span class="nd">@accounts</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="importing-contest-metadata">
+<h2>Importing contest metadata<a class="headerlink" href="#importing-contest-metadata" title="Permalink to this headline">¶</a></h2>
+<p>Prepare a file called <code class="docutils literal notranslate"><span class="pre">contest.yaml</span></code> which contains the contest information and a file called <code class="docutils literal notranslate"><span class="pre">problemset.yaml</span></code> which contains the problemset information.</p>
+<p>Example <code class="docutils literal notranslate"><span class="pre">contest.yaml</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">name</span><span class="p">:</span>                     <span class="n">DOMjudge</span> <span class="nb">open</span> <span class="n">practice</span> <span class="n">session</span>
+<span class="n">short</span><span class="o">-</span><span class="n">name</span><span class="p">:</span>               <span class="n">practice</span>
+<span class="n">start</span><span class="o">-</span><span class="n">time</span><span class="p">:</span>               <span class="mi">2020</span><span class="o">-</span><span class="mi">04</span><span class="o">-</span><span class="mi">30</span><span class="n">T10</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="o">+</span><span class="mi">01</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">duration</span><span class="p">:</span>                 <span class="mi">2</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">scoreboard</span><span class="o">-</span><span class="n">freeze</span><span class="o">-</span><span class="n">length</span><span class="p">:</span> <span class="mi">0</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">00</span>
+<span class="n">penalty</span><span class="o">-</span><span class="n">time</span><span class="p">:</span>             <span class="mi">20</span>
+</pre></div>
+</div>
+<p>Example <code class="docutils literal notranslate"><span class="pre">problemset.yaml</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">problems</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">letter</span><span class="p">:</span>     <span class="n">A</span>
+    <span class="n">short</span><span class="o">-</span><span class="n">name</span><span class="p">:</span> <span class="n">hello</span>
+    <span class="n">color</span><span class="p">:</span>      <span class="n">Orange</span>
+    <span class="n">rgb</span><span class="p">:</span>        <span class="s1">&#39;#FF7109&#39;</span>
+
+  <span class="o">-</span> <span class="n">letter</span><span class="p">:</span>     <span class="n">B</span>
+    <span class="n">short</span><span class="o">-</span><span class="n">name</span><span class="p">:</span> <span class="n">boolfind</span>
+    <span class="n">color</span><span class="p">:</span>      <span class="n">Forest</span> <span class="n">Green</span>
+    <span class="n">rgb</span><span class="p">:</span>        <span class="s1">&#39;#008100&#39;</span>
+</pre></div>
+</div>
+<p>Concatenate both YAML files into one and then import the combined file by
+running the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span> <span class="o">--</span><span class="n">check</span><span class="o">-</span><span class="n">status</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="n">POST</span> <span class="s2">&quot;&lt;API_URL&gt;/contests&quot;</span> <span class="n">yaml</span><span class="nd">@combined</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>This call returns the new contest ID.</p>
+</div>
+<div class="section" id="importing-problems">
+<h2>Importing problems<a class="headerlink" href="#importing-problems" title="Permalink to this headline">¶</a></h2>
+<p>Prepare your problems in the <a class="reference internal" href="problem-format.html"><span class="doc">ICPC problem format</span></a> and
+create a ZIP file for each problem and upload it by running the following
+command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">http</span> <span class="o">--</span><span class="n">check</span><span class="o">-</span><span class="n">status</span> <span class="o">-</span><span class="n">b</span> <span class="o">-</span><span class="n">f</span> <span class="n">POST</span> <span class="s2">&quot;&lt;API_URL&gt;/contests/&lt;CID&gt;/problems&quot;</span> <span class="nb">zip</span><span class="p">[]</span><span class="nd">@problem</span><span class="o">.</span><span class="n">zip</span> <span class="n">problem</span><span class="o">=</span><span class="s2">&quot;&lt;PROBID&gt;&quot;</span>
+</pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;CID&gt;</span></code> with the contest ID that the previous command returns and
+<code class="docutils literal notranslate"><span class="pre">&lt;PROBID&gt;</span></code> with the problem ID (you can get that from the web interface or
+the API).</p>
+</div>
+<div class="section" id="putting-it-all-together">
+<h2>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">¶</a></h2>
+<p>If you prepare your contest configuration as we described in the previous
+subsections, you can also use the script that we provide in
+<cite>misc-tools/import-contest.sh</cite>.</p>
+<p>Call it from your contest folder like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">misc</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">import</span><span class="o">-</span><span class="n">contest</span><span class="o">.</span><span class="n">sh</span> <span class="o">&lt;</span><span class="n">API_URL</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="config-advanced.html" class="btn btn-neutral float-right" title="Advanced configuration topics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="config-basic.html" class="btn btn-neutral float-left" title="Configuring the system" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2004-2021 by the DOMjudge developers and contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

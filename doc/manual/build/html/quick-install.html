@@ -1,0 +1,337 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Appendix: Quick installation checklist &mdash; DOMjudge 7.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/js/versionswitcher.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DOMjudge team manual" href="team.html" />
+    <link rel="prev" title="Development" href="develop.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DOMjudge
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                7.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-domserver.html">Installation of the DOMserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-judgehost.html">Installation of the judgehosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-workstation.html">Installation of the team workstations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading.html">Upgrading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-basic.html">Configuring the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import.html">Adding contest data programmatically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-advanced.html">Advanced configuration topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the contest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="judging.html">Judging topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Appendix: Quick installation checklist</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#domserver">DOMserver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#judgehosts">Judgehosts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#submit-client">Submit client</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#checking-if-it-works">Checking if it works</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">DOMjudge team manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem-format.html">Appendix: Problem format specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shadow.html">Appendix: Running DOMjudge as a shadow system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration-reference.html">Appendix: Configuration reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DOMjudge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Appendix: Quick installation checklist</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/DOMjudge/domjudge/blob/master/doc/manual/quick-install.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="appendix-quick-installation-checklist">
+<h1>Appendix: Quick installation checklist<a class="headerlink" href="#appendix-quick-installation-checklist" title="Permalink to this headline">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is not a replacement for the thorough installation
+instructions, but more a cheat-sheet for those who’ve already
+installed DOMjudge before and need a few hints. When in doubt, always
+consult the full installation instruction.</p>
+</div>
+<div class="section" id="domserver">
+<h2>DOMserver<a class="headerlink" href="#domserver" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul>
+<li><p class="first">Install the MySQL- or MariaDB-server and set a root password for it.</p>
+</li>
+<li><p class="first">Install either nginx or Apache and PHP.</p>
+</li>
+<li><p class="first">Make sure PHP works for the web server and command line scripts.</p>
+</li>
+<li><p class="first">Extract the source tarball and run
+<code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--with-baseurl=&lt;url&gt;</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">domserver</span></code>.</p>
+</li>
+<li><p class="first">Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">install-domserver</span></code> to install the system.</p>
+</li>
+<li><p class="first">Install the MySQL database using e.g.
+<code class="docutils literal notranslate"><span class="pre">bin/dj_setup_database</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-r</span> <span class="pre">install</span></code>.</p>
+</li>
+<li><p class="first">For Apache: add <code class="docutils literal notranslate"><span class="pre">etc/apache.conf</span></code> to your Apache configuration and
+add <code class="docutils literal notranslate"><span class="pre">etc/domjudge-fpm.conf</span></code> to your PHP FPM pool directory, edit
+it to your needs, reload web server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">conf</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">domjudge</span><span class="o">-</span><span class="n">fpm</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php</span><span class="o">/</span><span class="mf">7.3</span><span class="o">/</span><span class="n">fpm</span><span class="o">/</span><span class="n">pool</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">sudo</span> <span class="n">a2enmod</span> <span class="n">proxy_fcgi</span> <span class="n">setenvif</span> <span class="n">rewrite</span>
+<span class="n">sudo</span> <span class="n">a2enconf</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">domjudge</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">reload</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">apache2</span> <span class="n">reload</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">For nginx: add <code class="docutils literal notranslate"><span class="pre">etc/nginx-conf</span></code> to your nginx configuration and
+add <code class="docutils literal notranslate"><span class="pre">etc/domjudge-fpm.conf</span></code> to your PHP FPM pool directory, edit
+it to your needs, reload web server:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">-</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span><span class="n">domjudge</span>
+<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">domjudge</span><span class="o">-</span><span class="n">fpm</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php</span><span class="o">/</span><span class="mf">7.3</span><span class="o">/</span><span class="n">fpm</span><span class="o">/</span><span class="n">pool</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">reload</span>
+<span class="n">sudo</span> <span class="n">service</span> <span class="n">nginx</span> <span class="n">reload</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check that the web interface works (/team, /public and /jury).</p>
+</li>
+<li><p class="first">Check that the API (/api) works and create credentials for the judgehosts.</p>
+</li>
+<li><p class="first">Create teams, user accounts and add useful contest data.</p>
+</li>
+<li><p class="first">Run the config checker in the jury web interface.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="judgehosts">
+<h2>Judgehosts<a class="headerlink" href="#judgehosts" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Extract the source tarball and run
+<code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--with-baseurl=&lt;url&gt;</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">judgehost</span></code>.</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">make</span> <span class="pre">install-judgehost</span></code> to install the system.</li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">useradd</span> <span class="pre">-d</span> <span class="pre">/nonexistent</span> <span class="pre">-U</span> <span class="pre">-M</span> <span class="pre">-s</span> <span class="pre">/bin/false</span> <span class="pre">domjudge-run</span></code></li>
+<li>Add to <code class="docutils literal notranslate"><span class="pre">/etc/sudoers.d/</span></code> or append to <code class="docutils literal notranslate"><span class="pre">/etc/sudoers</span></code> the
+sudoers configuration as in <code class="docutils literal notranslate"><span class="pre">etc/sudoers-domjudge</span></code>.</li>
+<li>Set up cgroup support: enable kernel parameters in
+<code class="docutils literal notranslate"><span class="pre">/etc/default/grub</span></code> and reboot, then run
+<code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">create-cgroups</span> <span class="pre">--now</span></code> to create cgroups for DOMjudge.</li>
+<li>Put the right credentials in the file <code class="docutils literal notranslate"><span class="pre">etc/restapi.secret</span></code>.</li>
+<li>Create the pre-built chroot tree: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">bin/dj_make_chroot</span></code></li>
+<li>Start the judge daemon: either manually with <code class="docutils literal notranslate"><span class="pre">bin/judgedaemon</span></code>
+or as a service with <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">enable</span> <span class="pre">domjudge-judgehost</span></code>.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="submit-client">
+<h2>Submit client<a class="headerlink" href="#submit-client" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Build the client:
+<code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">--with-baseurl=&lt;url&gt;</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">submitclient</span></code>.</li>
+<li>Install it in your path and on the team machines.</li>
+<li>Add a <code class="docutils literal notranslate"><span class="pre">.netrc</span></code> file with valid team credentials.</li>
+<li>Run <code class="docutils literal notranslate"><span class="pre">submit</span> <span class="pre">--help</span></code> to see if it can connect successfully.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="checking-if-it-works">
+<h2>Checking if it works<a class="headerlink" href="#checking-if-it-works" title="Permalink to this headline">¶</a></h2>
+<p>It should be done by now. As a check that (almost) everything works,
+the set of test sources can be submitted on the DOMserver, on
+a system that has a working submit client installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">tests</span>
+<span class="n">make</span> <span class="n">check</span>
+</pre></div>
+</div>
+<p>Then, in the main jury web interface, select the admin link
+<em>judging verifier</em> to automatically verify most of the
+test sources. Read the test sources for a description of
+what should (not) happen.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="team.html" class="btn btn-neutral float-right" title="DOMjudge team manual" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="develop.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2004-2021 by the DOMjudge developers and contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

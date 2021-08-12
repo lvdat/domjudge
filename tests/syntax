@@ -1,0 +1,54 @@
+#!/bin/bash
+# Run some syntax checking tests on PHP and Shell scripts.
+
+set -euo pipefail
+cd "$(dirname "$0")" || exit -1
+
+PHP=$(command -v php)
+if [ ! -x "$PHP" ]; then
+	echo "PHP ($PHP) not found or not executable"
+	exit -1
+fi
+if [ ! -x /usr/bin/checkbashisms ]; then
+	echo "/usr/bin/checkbashisms not found or not executable"
+	exit -1
+fi
+if [ ! -x /usr/bin/shellcheck ]; then
+	echo "/usr/bin/shellcheck not found or not executable"
+	exit -1
+fi
+
+find .. \( -path ../lib/vendor            -prune \
+	-o -path ../webapp/var            -prune \
+	-o -path ../output                -prune \
+	-o -path ../.git                  -prune \
+	-o -path ../webapp/src/Migrations -prune \
+        -o -type f \) \
+	-a -type f |  \
+while read -r i ; do
+	if [[ "$i" == *\.php ]] || grep -q "^#\\!.*php" "$i"; then
+		$PHP -l "$i" | sed -e 's|No syntax errors detected in ../|check PHP syntax: |'
+		if [[ "$i" == *\.php ]] && [ "$i" != "../webapp/config/bundles.php" ] && ! head -1 "$i"|grep -q "strict_types"; then
+			echo "PHP file missing strict types declaration: $i"
+			exit 1
+		fi
+	fi
+	if grep -q "^#\\!.*/bin/sh" "$i" && \
+		[ "${i##*.}" != "zip" ] && \
+		echo "$i" | grep -qvE '(^\.\./(config|autom4te|install-sh|sql/files/defaultdata/hs/run|lib/vendor/|output|judge/judgedaemon))'; then
+		# shellcheck disable=SC2001
+		echo "$i" | sed -e 's|^../|check for bashisms: |'
+		checkbashisms "$i"
+	fi
+	if grep -qE "^#\\!.*/bin/(ba)?sh" "$i" && \
+		[ "${i##*.}" != "zip" ] && \
+		echo "$i" | grep -qvE '(^\.\./(config|autom4te|install-sh|sql/files/defaultdata/hs/run|lib/vendor/|output|judge/judgedaemon))'; then
+		# We ignore the following shellcheck warnings, for more details see:
+		# https://github.com/koalaman/shellcheck/wiki/<code>
+		#
+		# SC1072: buggy on empty compile scripts, see https://github.com/koalaman/shellcheck/issues/384
+		# SC2034: many "unused variables" are actually used, or in compile scripts declared on purpose
+		# SC2086: there are too many cases where quoting is not necessary and tedious
+		shellcheck -f gcc -e 1072,2034,2086 "$i" | sed -e 's|^../|shellcheck: |'
+	fi
+done

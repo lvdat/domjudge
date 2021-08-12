@@ -1,0 +1,56 @@
+# @configure_input@
+
+# inner nginx configuration for DOMjudge
+# This is in a separate file to not have duplicate config
+
+server_name _default_;
+
+# set max upload size to infinite since PHP has a setting for this
+client_max_body_size 0;
+
+# Variables used in the nginx configuration
+set $domjudgeRoot @domserver_webappdir@/public;
+# Set this to '' instead of /domjudge when running in the root of your system
+set $prefix /domjudge;
+
+# Uncomment to run it out of the root of your system
+# location / {
+# 	root $domjudgeRoot;
+# 	try_files $uri @domjudgeFront;
+# }
+
+# Or you can install it with a prefix
+location /domjudge { return 301 /domjudge/; }
+location /domjudge/ {
+	root $domjudgeRoot;
+	rewrite ^/domjudge/(.*)$ /$1 break;
+	try_files $uri @domjudgeFront;
+}
+
+location @domjudgeFront {
+	fastcgi_split_path_info ^(.+\.php)(/.*)$;
+	fastcgi_pass domjudge;
+	include fastcgi_params;
+	fastcgi_param SERVER_NAME $host;
+	fastcgi_param SCRIPT_FILENAME $domjudgeRoot/index.php;
+	fastcgi_param SCRIPT_NAME $prefix/index.php;
+	fastcgi_param REQUEST_URI $prefix$uri?$args;
+	fastcgi_param DOCUMENT_ROOT $domjudgeRoot;
+	# Prevents URIs that include the front controller. This will 404:
+	# http://domain.tld/app_dev.php/some-path
+	internal;
+}
+
+# The X-Frame-Options header defends against so-called 'clickjacking' attacks.
+# Should you want to load part of DOMjudge (e.g. the public scoreboard) in
+# a HTML frame or iframe, disable this header for that part of DOMjudge only.
+add_header X-Frame-Options "DENY";
+
+# The following headers should be fine for any DOMjudge installation.
+add_header Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data:";
+add_header Referrer-Policy "same-origin";
+add_header X-Content-Type-Options "nosniff";
+add_header X-XSS-Protection "1; mode=block";
+
+error_log /var/log/nginx/domjudge.log;
+access_log /var/log/nginx/domjudge.log;

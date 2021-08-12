@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation of the DOMserver &mdash; DOMjudge 7.3.3 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script type="text/javascript" src="_static/js/versionswitcher.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation of the judgehosts" href="install-judgehost.html" />
+    <link rel="prev" title="Overview" href="overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> DOMjudge
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                7.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation of the DOMserver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#system-requirements">System requirements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#software-requirements">Software requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#database-configuration">Database configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#web-server-configuration">Web server configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-in-to-domjudge">Log in to DOMjudge</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="install-judgehost.html">Installation of the judgehosts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install-workstation.html">Installation of the team workstations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="upgrading.html">Upgrading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-basic.html">Configuring the system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="import.html">Adding contest data programmatically</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-advanced.html">Advanced configuration topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Running the contest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="judging.html">Judging topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="develop.html">Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quick-install.html">Appendix: Quick installation checklist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">DOMjudge team manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="problem-format.html">Appendix: Problem format specification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shadow.html">Appendix: Running DOMjudge as a shadow system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration-reference.html">Appendix: Configuration reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">DOMjudge</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation of the DOMserver</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/DOMjudge/domjudge/blob/master/doc/manual/install-domserver.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation-of-the-domserver">
+<h1>Installation of the DOMserver<a class="headerlink" href="#installation-of-the-domserver" title="Permalink to this headline">¶</a></h1>
+<p>The DOMjudge server (short DOMserver) is the central entity that runs
+the DOMjudge web interface and API that teams, jury members and the
+judgehosts connect to.</p>
+<div class="section" id="requirements">
+<span id="domserver-requirements"></span><h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="system-requirements">
+<h3>System requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The operating system is Linux or another Unix variant. DOMjudge has mostly
+been tested with Debian and Ubuntu, but should work on other environments.</li>
+<li>It is probably necessary that you have root access to be able to install
+the necessary components, but it’s not required for actually running the
+DOMserver.</li>
+<li>A TCP/IP network which connects the DOMserver and the judgehosts, and
+DOMjudge and the team workstations. All of these machines only need HTTP(S)
+access to the DOMserver.</li>
+</ul>
+</div>
+<div class="section" id="software-requirements">
+<h3>Software requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A web server with support for PHP &gt;= 7.2.5 and the <code class="docutils literal notranslate"><span class="pre">mysqli</span></code>, <code class="docutils literal notranslate"><span class="pre">curl</span></code>, <code class="docutils literal notranslate"><span class="pre">gd</span></code>,
+<code class="docutils literal notranslate"><span class="pre">mbstring</span></code>, <code class="docutils literal notranslate"><span class="pre">intl</span></code>, <code class="docutils literal notranslate"><span class="pre">zip</span></code>, <code class="docutils literal notranslate"><span class="pre">xml</span></code> and <code class="docutils literal notranslate"><span class="pre">json</span></code> extensions for PHP.</li>
+<li>MySQL or MariaDB database. This can be on the same machine, but for
+advanced setups can also run on a dedicated machine.</li>
+<li>An NTP daemon, for keeping the clocks between jury system and team
+workstations in sync.</li>
+</ul>
+<p>For your convenience, the following command will install the necessary
+software on the DOMjudge server as mentioned above when using Debian
+GNU/Linux, or one of its derivative distributions like Ubuntu:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="n">acl</span> <span class="nb">zip</span> <span class="n">unzip</span> <span class="n">mariadb</span><span class="o">-</span><span class="n">server</span> <span class="n">apache2</span> \
+      <span class="n">php</span> <span class="n">php</span><span class="o">-</span><span class="n">fpm</span> <span class="n">php</span><span class="o">-</span><span class="n">gd</span> <span class="n">php</span><span class="o">-</span><span class="n">cli</span> <span class="n">php</span><span class="o">-</span><span class="n">intl</span> <span class="n">php</span><span class="o">-</span><span class="n">mbstring</span> <span class="n">php</span><span class="o">-</span><span class="n">mysql</span> \
+      <span class="n">php</span><span class="o">-</span><span class="n">curl</span> <span class="n">php</span><span class="o">-</span><span class="n">json</span> <span class="n">php</span><span class="o">-</span><span class="n">xml</span> <span class="n">php</span><span class="o">-</span><span class="nb">zip</span> <span class="n">composer</span> <span class="n">ntp</span>
+</pre></div>
+</div>
+<p>The following command can be used on RedHat Enterprise Linux, and related
+distributions like CentOS and Fedora:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">acl</span> <span class="nb">zip</span> <span class="n">unzip</span> <span class="n">mariadb</span><span class="o">-</span><span class="n">server</span> <span class="n">httpd</span> \
+      <span class="n">php</span><span class="o">-</span><span class="n">gd</span> <span class="n">php</span><span class="o">-</span><span class="n">cli</span> <span class="n">php</span><span class="o">-</span><span class="n">intl</span> <span class="n">php</span><span class="o">-</span><span class="n">mbstring</span> <span class="n">php</span><span class="o">-</span><span class="n">mysqlnd</span> \
+      <span class="n">php</span><span class="o">-</span><span class="n">xml</span> <span class="n">php</span><span class="o">-</span><span class="nb">zip</span> <span class="n">composer</span> <span class="n">ntp</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The DOMjudge build/install system consists of a <code class="docutils literal notranslate"><span class="pre">configure</span></code>
+script and makefiles, but when installing it, some more care has to be
+taken than simply running <code class="docutils literal notranslate"><span class="pre">./configure</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">install</span></code>.</p>
+<p>After installing the required software as described above, run configure.
+In this example to install DOMjudge in the directory <code class="docutils literal notranslate"><span class="pre">domjudge</span></code> under
+your home directory:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>./configure --prefix=$HOME/domjudge
+make domserver
+sudo make install-domserver
+</pre></div>
+</div>
+<p>Note that root privileges are required to set permissions and user and
+group ownership of password files and a few directories. If you run
+the installation targets as non-root, you will be shown how to perform
+these steps manually.</p>
+</div>
+<div class="section" id="database-configuration">
+<h2>Database configuration<a class="headerlink" href="#database-configuration" title="Permalink to this headline">¶</a></h2>
+<p>DOMjudge uses a MySQL or MariaDB database server for information storage.
+Where this document talks about MySQL, it can be understood to also apply
+to MariaDB.</p>
+<p>Installation of the database is done with <code class="docutils literal notranslate"><span class="pre">bin/dj_setup_database</span></code>.
+For this, you need an installed and configured MySQL server and
+administrator access to it. Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dj_setup_database</span> <span class="n">genpass</span>
+<span class="n">dj_setup_database</span> <span class="p">[</span><span class="o">-</span><span class="n">u</span> <span class="o">&lt;</span><span class="n">mysql</span> <span class="n">admin</span> <span class="n">user</span><span class="o">&gt;</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="o">&lt;</span><span class="n">password</span><span class="o">&gt;|-</span><span class="n">r</span><span class="p">]</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>This first creates the DOMjudge database credentials file
+<code class="docutils literal notranslate"><span class="pre">etc/dbpasswords.secret</span></code> if it does not exist already.</p>
+<p>Then it creates the database and user and inserts some
+default/example data into the domjudge database. The option
+<code class="docutils literal notranslate"><span class="pre">-r</span></code> will prompt for a password for mysql; when no user is
+specified, the mysql client will try to read
+credentials from <code class="docutils literal notranslate"><span class="pre">$HOME/.my.cnf</span></code> as usual. The command
+<code class="docutils literal notranslate"><span class="pre">uninstall</span></code> can be passed to <code class="docutils literal notranslate"><span class="pre">dj_setup_database</span></code> to
+remove the DOMjudge database and users; <em>this deletes all data</em>!</p>
+<p>The script also creates the initial “admin” user with password
+stored in <code class="docutils literal notranslate"><span class="pre">etc/initial_admin_password.secret</span></code>.</p>
+</div>
+<div class="section" id="web-server-configuration">
+<h2>Web server configuration<a class="headerlink" href="#web-server-configuration" title="Permalink to this headline">¶</a></h2>
+<p>For the web interface, you need to have a web server (e.g. nginx or Apache)
+installed on the DOMserver and made sure that PHP correctly works
+with it. Refer to the documentation of your web server and PHP for
+details. In the examples below, replace <code class="docutils literal notranslate"><span class="pre">7.3</span></code> with the PHP version
+you’re installing.</p>
+<p>To configure the Apache web server for DOMjudge, use the Apache
+configuration snippet from <code class="docutils literal notranslate"><span class="pre">etc/apache.conf</span></code>. It contains
+examples for configuring the DOMjudge pages with an alias directive,
+or as a virtualhost, optionally with TLS; it also contains PHP and security
+settings. Reload the web server for changes to take effect.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apache2</span><span class="o">/</span><span class="n">conf</span><span class="o">-</span><span class="n">available</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">domjudge</span><span class="o">-</span><span class="n">fpm</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php</span><span class="o">/</span><span class="mf">7.3</span><span class="o">/</span><span class="n">fpm</span><span class="o">/</span><span class="n">pool</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="n">a2enmod</span> <span class="n">proxy_fcgi</span> <span class="n">setenvif</span> <span class="n">rewrite</span>
+<span class="n">a2enconf</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">domjudge</span>
+<span class="c1"># Edit the file /etc/apache2/conf-available/domjudge.conf and</span>
+<span class="c1"># /etc/php/7.3/fpm/pool.d/domjudge.conf to your needs</span>
+<span class="n">service</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">reload</span>
+<span class="n">service</span> <span class="n">apache2</span> <span class="n">reload</span>
+</pre></div>
+</div>
+<p>An nginx webserver configuration snippet is also provided in
+<code class="docutils literal notranslate"><span class="pre">etc/nginx-conf</span></code>.  You still need <code class="docutils literal notranslate"><span class="pre">htpasswd</span></code> from <code class="docutils literal notranslate"><span class="pre">apache2-utils</span></code>
+though. To use this configuration, perform the following steps:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">-</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">sites</span><span class="o">-</span><span class="n">enabled</span><span class="o">/</span><span class="n">domjudge</span>
+<span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">DOMSERVER_INSTALL_PATH</span><span class="o">&gt;/</span><span class="n">etc</span><span class="o">/</span><span class="n">domjudge</span><span class="o">-</span><span class="n">fpm</span><span class="o">.</span><span class="n">conf</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">php</span><span class="o">/</span><span class="mf">7.3</span><span class="o">/</span><span class="n">fpm</span><span class="o">/</span><span class="n">pool</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">domjudge</span><span class="o">.</span><span class="n">conf</span>
+<span class="c1"># Edit the files /etc/nginx/sites-enabled/domjudge and</span>
+<span class="c1"># /etc/php/7.3/fpm/pool.d/domjudge.conf to your needs</span>
+<span class="n">service</span> <span class="n">php7</span><span class="o">.</span><span class="mi">3</span><span class="o">-</span><span class="n">fpm</span> <span class="n">reload</span>
+<span class="n">service</span> <span class="n">nginx</span> <span class="n">reload</span>
+</pre></div>
+</div>
+<p>The judgehosts connect to DOMjudge via the DOMjudge API so need
+to be able to access at least this part of the web interface.</p>
+</div>
+<div class="section" id="log-in-to-domjudge">
+<h2>Log in to DOMjudge<a class="headerlink" href="#log-in-to-domjudge" title="Permalink to this headline">¶</a></h2>
+<p>The DOMserver should now be operational. You can access the web application
+at your configured base URL. There’s an <code class="docutils literal notranslate"><span class="pre">admin</span></code> user with initial password
+found in <code class="docutils literal notranslate"><span class="pre">etc/initial_admin_password.secret</span></code>.</p>
+<p>You can continue now with
+<a class="reference internal" href="install-judgehost.html"><span class="doc">installing one or more judgehosts</span></a>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install-judgehost.html" class="btn btn-neutral float-right" title="Installation of the judgehosts" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2004-2021 by the DOMjudge developers and contributors
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
